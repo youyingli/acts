@@ -40,4 +40,16 @@ struct PoissonMultiplicityGenerator
   }
 };
 
+struct UniformMultiplicityGenerator
+    : public EventGenerator::MultiplicityGenerator {
+  double min = 0;
+  double max = 200;
+  UniformMultiplicityGenerator(double _min, double _max) : min(_min), max(_max) {}
+  UniformMultiplicityGenerator() = default;
+
+  size_t operator()(RandomEngine& rng) const override {
+    return std::uniform_int_distribution<size_t>(min, max)(rng);
+  }
+};
+
 }  // namespace ActsExamples

@@ -52,6 +52,8 @@ ActsExamples::ProcessCode ActsExamples::CsvParticleWriter::writeT(
     data.pz = p * particle.unitDirection().z();
     data.m = particle.mass() / Acts::UnitConstants::GeV;
     data.q = particle.charge() / Acts::UnitConstants::e;
+    data.parent_pid = particle.parentPDG();
+    data.npileup = particle.get_npileup();
     writer.append(data);
   }
 

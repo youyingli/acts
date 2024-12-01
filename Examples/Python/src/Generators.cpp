@@ -197,5 +197,23 @@ void addGenerators(Context& ctx) {
            }),
            py::arg("mean"))
       .def_readwrite("mean", &ActsExamples::PoissonMultiplicityGenerator::mean);
+
+  py::class_<ActsExamples::UniformMultiplicityGenerator,
+             ActsExamples::EventGenerator::MultiplicityGenerator,
+             std::shared_ptr<ActsExamples::UniformMultiplicityGenerator>>(
+      mex, "UniformMultiplicityGenerator")
+      .def(py::init<>())
+      .def(py::init([](double min, double max) {
+             ActsExamples::UniformMultiplicityGenerator g;
+             g.min = min;
+             g.max = max;
+             return g;
+           }),
+           py::arg("min"), py::arg("max"))
+      .def_readwrite("min", &ActsExamples::UniformMultiplicityGenerator::min)
+      .def_readwrite("max", &ActsExamples::UniformMultiplicityGenerator::max);
+
+
+
 }
 }  // namespace Acts::Python

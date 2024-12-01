@@ -8,6 +8,7 @@ from acts.examples import (
     RandomNumbers,
     EventGenerator,
     FixedMultiplicityGenerator,
+    UniformMultiplicityGenerator,
     CsvParticleWriter,
     ParticlesPrinter,
     RootParticleWriter,
@@ -245,7 +246,8 @@ def addPythia8(
     if npileup > 0:
         generators.append(
             acts.examples.EventGenerator.Generator(
-                multiplicity=acts.examples.FixedMultiplicityGenerator(n=npileup),
+                multiplicity=acts.examples.UniformMultiplicityGenerator(min=0, max=npileup),
+                #multiplicity=acts.examples.FixedMultiplicityGenerator(n=npileup),
                 vertex=vtxGen,
                 particles=acts.examples.pythia8.Pythia8Generator(
                     level=customLogLevel(),

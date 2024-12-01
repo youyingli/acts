@@ -50,7 +50,8 @@ ActsExamples::ProcessCode ActsExamples::EventGenerator::read(
     auto& generate = m_cfg.generators[iGenerate];
 
     // generate the primary vertices from this generator
-    for (size_t n = (*generate.multiplicity)(rng); 0 < n; --n) {
+    size_t npileup = (*generate.multiplicity)(rng);
+    for (size_t n = npileup; 0 < n; --n) {
       nPrimaryVertices += 1;
 
       // generate primary vertex position
@@ -71,7 +72,7 @@ ActsExamples::ProcessCode ActsExamples::EventGenerator::read(
         const auto pos4 = (vertexPosition + particle.fourPosition()).eval();
         ACTS_VERBOSE(" - particle at " << pos4.transpose());
         // `withParticleId` returns a copy because it changes the identity
-        particle = particle.withParticleId(pid).setPosition4(pos4);
+        particle = particle.withParticleId(pid).setPosition4(pos4).setNPu(npileup);
       };
       for (auto& vertexParticle : vertexParticles) {
         updateParticleInPlace(vertexParticle);

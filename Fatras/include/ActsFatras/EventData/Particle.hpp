@@ -114,6 +114,9 @@ class Particle {
   /// Set the particle charge.
   Particle &setCharge(Scalar charge) { return m_charge = charge, *this; }
 
+  /// Set number of pileup
+  Particle &setNPu(int32_t npileup) { m_npileup = npileup; return *this; }
+
   /// Change the energy by the given amount.
   ///
   /// Energy loss corresponds to a negative change. If the updated energy
@@ -139,6 +142,9 @@ class Particle {
   constexpr Scalar charge() const { return m_charge; }
   /// Particle mass.
   constexpr Scalar mass() const { return m_mass; }
+  /// PDG particle number of its parent.
+  constexpr int32_t parentPDG() const { return m_parent_pdg; }
+  Particle &setParentPDG(int32_t ppid) { return m_parent_pdg = ppid, *this; }
 
   /// Space-time position four-vector.
   constexpr const Vector4 &fourPosition() const { return m_position4; }
@@ -198,6 +204,9 @@ class Particle {
   /// Accumulated path within material measured in interaction lengths.
   constexpr Scalar pathInL0() const { return m_pathInL0; }
 
+  /// Number of pileup
+  constexpr int32_t get_npileup() const { return m_npileup; }
+
  private:
   // identity, i.e. things that do not change over the particle lifetime.
   /// Particle identifier within the event.
@@ -218,6 +227,12 @@ class Particle {
   // accumulated material
   Scalar m_pathInX0 = Scalar(0);
   Scalar m_pathInL0 = Scalar(0);
+
+  // PDG particle number for its parent
+  int32_t m_parent_pdg = 0;
+
+  // Number of pileup
+  int32_t m_npileup = -1;
 };
 
 std::ostream &operator<<(std::ostream &os, const Particle &particle);

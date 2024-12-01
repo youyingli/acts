@@ -35,8 +35,14 @@ struct ParticleData {
   /// Charge in e.
   float q = 0;
 
-  DFE_NAMEDTUPLE(ParticleData, particle_id, particle_type, process, vx, vy, vz,
-                 vt, px, py, pz, m, q);
+  /// PDG ID of its parent
+  int32_t parent_pid = 0;
+
+  /// Number of pileup
+  int32_t npileup = 0;
+
+  DFE_NAMEDTUPLE(ParticleData, particle_id, particle_type, process, npileup, vx, vy, vz,
+                 vt, px, py, pz, m, q, parent_pid);
 };
 
 // Write out simhits before digitization (no hi_id associated)
